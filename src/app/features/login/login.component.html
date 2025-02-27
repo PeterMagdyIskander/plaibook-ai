@@ -3,16 +3,16 @@
     <h2>Login</h2>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label for="name">Name</label>
+        <label for="email">Email</label>
         <input
-          type="text"
-          id="name"
-          formControlName="name"
-          [ngClass]="{'invalid': isFieldInvalid('name')}"
+          type="email"
+          id="email"
+          formControlName="email"
+          [ngClass]="{'invalid': isFieldInvalid('email')}"
         />
-        <div *ngIf="isFieldInvalid('name')" class="error-message">
-          <span *ngIf="loginForm.get('name')?.errors?.['required']">Name is required</span>
-          <span *ngIf="loginForm.get('name')?.errors?.['minlength']">Name must be at least 3 characters</span>
+        <div *ngIf="isFieldInvalid('email')" class="error-message">
+          <span *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</span>
+          <span *ngIf="loginForm.get('email')?.errors?.['email']">Please enter a valid email address</span>
         </div>
       </div>
 

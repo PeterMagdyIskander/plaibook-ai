@@ -1,0 +1,11 @@
+<nav class="navigation-container">
+  <h1 class="navigation-container-header">Academy Manager</h1>
+  <ul>
+    @for (route of routes; track $index) {
+    <li>
+      <img [src]="'./assets/' + route.icon" [alt]="route.icon" />
+      <a [routerLink]="route.route">{{ route.name }}</a>
+    </li>
+    }
+  </ul>
+</nav>

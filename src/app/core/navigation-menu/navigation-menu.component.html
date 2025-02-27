@@ -3,8 +3,11 @@
   <ul>
     @for (route of routes; track $index) {
     <li>
-      <img [src]="'./assets/' + route.icon" [alt]="route.icon" />
-      <a [routerLink]="route.route">{{ route.name }}</a>
+      <a [routerLink]="route.route" [routerLinkActive]="['is-active']"
+        ><img [src]="'./assets/' + route.icon" [alt]="route.icon" /><span>{{
+          route.name
+        }}</span></a
+      >
     </li>
     }
   </ul>

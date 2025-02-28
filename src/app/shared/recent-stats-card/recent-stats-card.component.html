@@ -1,0 +1,6 @@
+<div class="recent-stats-container">
+  <h1 class="recent-stats-container-title">{{ item.title }}</h1>
+  @for (item of item.data; track $index) {
+    <app-recent-stats-data-card [item]="item"></app-recent-stats-data-card>
+  }
+</div>

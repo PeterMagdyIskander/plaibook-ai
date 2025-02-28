@@ -5,9 +5,15 @@
   </h3>
   <div class="dashboard-stats">
     @for (item of statsCardData; track $index) {
-    <a [routerLink]="item.route"><app-stats-card [item]="item"></app-stats-card></a>
+    <a [routerLink]="item.route"
+      ><app-stats-card [item]="item"></app-stats-card
+    ></a>
     }
   </div>
 
-
+  <div class="dashboard-stats">
+    @for (item of recentStatsData; track $index) {
+    <app-recent-stats-card [item]="item"></app-recent-stats-card>
+    }
+  </div>
 </div>

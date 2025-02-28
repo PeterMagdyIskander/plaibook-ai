@@ -1,0 +1,19 @@
+<div class="data-container">
+  <div class="data-container-info-container">
+    @if (item.icon) {
+    <div class="icon-container">
+      <img [src]="'./assets/' + item.icon" alt="icon" />
+    </div>
+    }
+    <div>
+      <h6 class="title">{{ item.title }}</h6>
+      <h6 class="subtitle">{{ item.subtitle }}</h6>
+    </div>
+  </div>
+  <div class="data-container-info-container-data">
+    <img [src]="'./assets/' + item.subIcon" alt="sub icon" [class.yellow]="item.value" />
+    @if (item.value) {
+    <span>{{ item.value }}</span>
+    }
+  </div>
+</div>

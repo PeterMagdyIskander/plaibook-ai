@@ -1,0 +1,13 @@
+<div class="dashboard">
+  <h1 class="dashboard-title">Academy Dashboard</h1>
+  <h3 class="dashboard-subtitle">
+    Welcome back, manage your academy teams and players
+  </h3>
+  <div class="dashboard-stats">
+    @for (item of statsCardData; track $index) {
+    <a [routerLink]="item.route"><app-stats-card [item]="item"></app-stats-card></a>
+    }
+  </div>
+
+
+</div>

@@ -1,0 +1,81 @@
+.container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.formation-selector {
+  margin-bottom: 20px;
+}
+
+select {
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 4px;
+  margin-left: 10px;
+}
+
+.pitch-container {
+  width: 100%;
+  padding-top: 10px;
+}
+
+.pitch {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 150%;
+  background-color: #e0f7ea;
+  border: 2px solid #00a676;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.center-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #00a676;
+}
+
+.goal-area {
+  position: absolute;
+  bottom: 0;
+  left: 30%;
+  width: 40%;
+  height: 5%;
+  border: 2px solid #00a676;
+  border-bottom: none;
+}
+
+.penalty-box {
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+  width: 60%;
+  height: 20%;
+  border: 2px solid #00a676;
+  border-bottom: none;
+}
+
+.player {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.player-circle {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #00a676;
+  color: white;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 12px;
+}

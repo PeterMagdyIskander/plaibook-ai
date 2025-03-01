@@ -1,1 +1,28 @@
-<p>training works!</p>
+<div class="training-container">
+  <div class="training-container-header">
+    <div>
+      <h1 class="training-container-header-title">Training Sessions</h1>
+      <h3 class="training-container-header-subtitle">
+        Schedule and manage training sessions
+      </h3>
+    </div>
+    <button class="training-container-header-control" (click)="openDialog()">
+      <img src="./assets/training-icon.svg" alt="icon" />
+      <span>New Session</span>
+    </button>
+  </div>
+
+  <div class="training-container-sessions">
+    <app-session-card [item]="upcomingSessions" [isUpcoming]="true"></app-session-card>
+    <app-session-card [item]="RecentSessions" [isUpcoming]="false"></app-session-card>
+  </div>
+
+</div>
+
+
+@if (isDialogVisible) {
+  <div class="dialog-overlay" (click)="closeDialog()">
+    <dialog open class="" (click)="$event.stopPropagation()">
+    </dialog>
+  </div>
+  }

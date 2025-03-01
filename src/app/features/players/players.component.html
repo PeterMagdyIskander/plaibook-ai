@@ -1,1 +1,28 @@
-<p>players works!</p>
+<div class="players-container">
+  <div class="players-container-header">
+    <div>
+      <h1 class="players-container-header-title">Players</h1>
+      <h3 class="players-container-header-subtitle">
+        Manage your academy players
+      </h3>
+    </div>
+    <button class="players-container-header-control">
+      <img src="./assets/add-player-icon.svg" alt="icon" />
+      <span>Add Player</span>
+    </button>
+  </div>
+  <div class="players-container-search">
+    <img src="./assets/search-icon.svg" alt="icon" />
+    <input
+      type="text"
+      placeholder="Search players..."
+      [value]="searchQuery()"
+      (input)="updateSearch($event)"
+    />
+  </div>
+  <div class="players-container-cards-container">
+    @for (item of filteredPlayers(); track $index) {
+    <app-player-card [item]="item"></app-player-card>
+    }
+  </div>
+</div>

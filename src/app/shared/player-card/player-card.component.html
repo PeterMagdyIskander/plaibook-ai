@@ -1,0 +1,23 @@
+<div class="player-card">
+  <div class="player-card-header">
+    <div class="player-card-header-icon">
+      <h1>{{ item.name | iconGenerator }}</h1>
+    </div>
+    <div>
+      <h3 class="player-card-header-name">{{ item.name }}</h3>
+      <h4 class="player-card-header-info">
+        {{ item.position }} <span>•</span> {{ item.team }}
+      </h4>
+    </div>
+  </div>
+  <div class="player-card-content">
+    <div class="player-card-content-item">
+      <h6>Age</h6>
+      <h6>{{ item.age }}</h6>
+    </div>
+    <div class="player-card-content-item">
+      <h6>Rating</h6>
+      <h6>{{ item.rating }}</h6>
+    </div>
+  </div>
+</div>

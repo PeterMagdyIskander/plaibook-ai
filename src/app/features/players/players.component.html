@@ -6,7 +6,7 @@
         Manage your academy players
       </h3>
     </div>
-    <button class="players-container-header-control">
+    <button class="players-container-header-control" (click)="openDialog()">
       <img src="./assets/add-player-icon.svg" alt="icon" />
       <span>Add Player</span>
     </button>
@@ -26,3 +26,94 @@
     }
   </div>
 </div>
+
+@if (isDialogVisible) {
+<div class="dialog-overlay" (click)="closeDialog()">
+  <dialog open class="player-dialog" (click)="$event.stopPropagation()">
+    <div class="dialog-container">
+      <div class="dialog-header">
+        <h2>Add New Player</h2>
+        <button type="button" class="close-button" (click)="closeDialog()">
+          ×
+        </button>
+      </div>
+
+      <form [formGroup]="playerForm" (ngSubmit)="onSubmit()">
+        <div class="form-container">
+          <div class="form-field">
+            <label for="name">Full Name</label>
+            <input
+              type="text"
+              id="name"
+              formControlName="name"
+              placeholder="John Doe"
+            />
+            @if (shouldShowError('name', 'required')) {
+            <div class="error-message">Full name is required</div>
+            }
+          </div>
+
+          <div class="form-field">
+            <label for="position">Position</label>
+            <select id="position" formControlName="position">
+              <option value="" disabled selected>Select position</option>
+              @for (position of positions; track $index) {
+              <option [value]="position">
+                {{ position }}
+              </option>
+              }
+            </select>
+            @if (shouldShowError('position', 'required')) {
+            <div class="error-message">Position is required</div>
+            }
+          </div>
+
+          <div class="form-field">
+            <label for="age">Age</label>
+            <input
+              type="number"
+              id="age"
+              formControlName="age"
+              placeholder="18"
+              min="16"
+              max="60"
+            />
+            @if (shouldShowError('age', 'required')) {
+            <div class="error-message">Age is required</div>
+            } @if (shouldShowError('age', 'min')) {
+            <div class="error-message">Minimum age is 16</div>
+            } @if (shouldShowError('age', 'max')) {
+            <div class="error-message">Maximum age is 60</div>
+            }
+          </div>
+
+          <div class="form-field">
+            <label for="team">Team</label>
+            <select id="team" formControlName="team">
+              <option value="" disabled selected>Select team</option>
+              @for (team of teams; track $index) {
+              <option [value]="team">
+                {{ team }}
+              </option>
+              }
+            </select>
+            @if (shouldShowError('team', 'required')) {
+            <div class="error-message">Team is required</div>
+            }
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button
+            type="submit"
+            class="add-button"
+            [disabled]="!playerForm.valid"
+          >
+            Add Player
+          </button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+</div>
+}

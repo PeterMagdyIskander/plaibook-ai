@@ -1,15 +1,41 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, OnInit, signal } from '@angular/core';
 import { Player } from './player.model';
 import { PlayerCardComponent } from '../../shared/player-card/player-card.component';
 
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 @Component({
   selector: 'app-players',
   standalone: true,
-  imports: [PlayerCardComponent],
+  imports: [PlayerCardComponent, ReactiveFormsModule],
   templateUrl: './players.component.html',
   styleUrl: './players.component.scss',
 })
-export class PlayersComponent {
+export class PlayersComponent implements OnInit {
+  playerForm!: FormGroup;
+  isDialogVisible = false;
+  positions: string[] = [
+    'Goalkeeper',
+    'Rigth Back',
+    'Center Back',
+    'Left Back',
+    'Defensive Midfielder',
+    'Central Midfielder',
+    'Attacking Midfielder',
+    'Left Winger',
+    'Right Winger',
+    'Striker',
+  ];
+  teams: string[] = ['Youth', 'Under 23', "Men's", "Women's"];
+
+  constructor(private fb: FormBuilder) {}
+  ngOnInit(): void {
+    this.initForm();
+  }
   players = signal<Player[]>([
     {
       name: 'John Doe #1',
@@ -74,5 +100,43 @@ export class PlayersComponent {
   updateSearch(event: Event) {
     const input = event.target as HTMLInputElement;
     this.searchQuery.set(input.value);
+  }
+  initForm(): void {
+    this.playerForm = this.fb.group({
+      name: ['', Validators.required],
+      position: ['', Validators.required],
+      age: ['', [Validators.required, Validators.min(16), Validators.max(60)]],
+      team: ['', Validators.required],
+    });
+  }
+
+  openDialog(): void {
+    this.isDialogVisible = true;
+  }
+
+  closeDialog(): void {
+    this.isDialogVisible = false;
+  }
+
+  onSubmit(): void {
+    if (this.playerForm.valid) {
+      const newPlayer: Player = {
+        name: this.playerForm.value.name,
+        age: this.playerForm.value.age,
+        team: this.playerForm.value.team,
+        position: this.playerForm.value.position,
+        rating: 0,
+      };
+
+      this.players.set([...this.players(), newPlayer]);
+      this.closeDialog();
+      this.playerForm.reset();
+    }
+  }
+
+  // Helper methods for validation
+  shouldShowError(controlName: string, errorName: string): boolean {
+    const control = this.playerForm.get(controlName);
+    return control!.touched && control!.hasError(errorName);
   }
 }

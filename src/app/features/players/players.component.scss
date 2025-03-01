@@ -28,6 +28,7 @@
       color: #fff;
       font-size: 16px;
       border-radius: 10px;
+      cursor: pointer;
       img {
         width: 16px;
         filter: invert(94%) sepia(0%) saturate(7498%) hue-rotate(247deg)
@@ -55,8 +56,8 @@
       border-radius: 10px;
       padding-left: 40px;
       font-weight: 500;
-      &:focus-visible{
-        outline:unset;
+      &:focus-visible {
+        outline: unset;
         border: 2px solid rgb(16, 185, 129);
       }
     }
@@ -69,4 +70,118 @@
     column-gap: 24px;
     row-gap: 24px;
   }
+}
+
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.player-dialog {
+  width: 512px;
+  max-width: 100%;
+  padding: 0;
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.dialog-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+}
+
+.dialog-header h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #666;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 24px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+label {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+input,
+select {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border: 2px solid rgb(16, 185, 129);
+}
+
+.error-message {
+  color: #d32f2f;
+  font-size: 12px;
+  display: none;
+}
+
+/* Show error message when it should be visible based on the *ngIf condition */
+.error-message[style*="display: block"] {
+  display: block;
+}
+
+.form-actions {
+  padding: 16px;
+  display: flex;
+}
+
+.add-button {
+  width: 100%;
+  padding: 8px 24px;
+  background-color: rgb(16, 185, 129);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.add-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }

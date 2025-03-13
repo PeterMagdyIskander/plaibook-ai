@@ -1,0 +1,12 @@
+<div class="card-container">
+  <div
+    class="card-container-icon-container"
+    [style.background-color]="item.iconBackgroundColor"
+  >
+    <img [src]="'./assets/' + item.icon" alt="card icon" />
+  </div>
+  <div class="card-container-info-container">
+    <h6 class="card-container-info-container-title">{{ item.title }}</h6>
+    <h3 class="card-container-info-container-value">{{ item.value }}</h3>
+  </div>
+</div>

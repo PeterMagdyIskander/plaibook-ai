@@ -1,0 +1,26 @@
+<div class="data-container">
+  <div class="data-container-info-container">
+    <div class="icon-container" [class.past-date] = "!isUpcoming">
+      <img src="./assets/training-icon.svg" alt="icon" />
+    </div>
+    <div>
+      <h6 class="title">{{ item.title }}</h6>
+      <div class="subtitle">
+        <div>
+          <img src="./assets/clock-icon.svg" alt="icon" />
+          <span>{{
+            isUpcoming ? item.from + " - " + item.to : "Yesterday"
+          }}</span>
+        </div>
+
+        <div>
+          <img src="./assets/players-icon.svg" alt="icon" />
+          <span>{{ item.team }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="data-container-info-container-action">
+    {{ isUpcoming ? "Details" : "View Report" }}
+  </button>
+</div>

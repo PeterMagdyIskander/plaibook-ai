@@ -1,0 +1,6 @@
+<div class="session-container">
+  <h1 class="session-container-title">{{ item.title }}</h1>
+  @for (item of item.data; track $index) {
+    <app-session-data-card [item]="item" [isUpcoming]="isUpcoming"></app-session-data-card>
+  }
+</div>

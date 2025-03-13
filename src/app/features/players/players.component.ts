@@ -1,7 +1,8 @@
+import { PlayerService } from './../../core/services/player.service';
 import { Component, computed, OnInit, signal } from '@angular/core';
 import { Player } from './player.model';
 import { PlayerCardComponent } from '../../shared/player-card/player-card.component';
-
+import { HttpClient } from '@angular/common/http';
 import {
   FormBuilder,
   FormGroup,
@@ -32,54 +33,11 @@ export class PlayersComponent implements OnInit {
   ];
   teams: string[] = ['Youth', 'Under 23', "Men's", "Women's"];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private PlayerService:PlayerService) {}
   ngOnInit(): void {
     this.initForm();
+    this.PlayerService.getAllPlayers();
   }
-  players = signal<Player[]>([
-    {
-      name: 'John Doe #1',
-      age: 18,
-      rating: 4.5,
-      team: 'Youth Team',
-      position: 'Striker',
-    },
-    {
-      name: 'John Doe #2',
-      age: 18,
-      rating: 4.5,
-      team: 'Youth Team',
-      position: 'Striker',
-    },
-    {
-      name: 'John Doe #3',
-      age: 18,
-      rating: 4.5,
-      team: 'Youth Team',
-      position: 'Striker',
-    },
-    {
-      name: 'John Doe #4',
-      age: 18,
-      rating: 4.5,
-      team: 'Youth Team',
-      position: 'Striker',
-    },
-    {
-      name: 'John Doe #5',
-      age: 18,
-      rating: 4.5,
-      team: 'Youth Team',
-      position: 'Striker',
-    },
-    {
-      name: 'John Doe #6',
-      age: 18,
-      rating: 4.5,
-      team: 'Youth Team',
-      position: 'Striker',
-    },
-  ]);
   // Signal for the search query
   searchQuery = signal('');
 
@@ -88,10 +46,10 @@ export class PlayersComponent implements OnInit {
     const query = this.searchQuery().toLowerCase();
 
     if (!query) {
-      return this.players();
+      return this.PlayerService.players();
     }
 
-    return this.players().filter((player) =>
+    return this.PlayerService.players().filter((player) =>
       player.name.toLowerCase().includes(query)
     );
   });
@@ -128,7 +86,7 @@ export class PlayersComponent implements OnInit {
         rating: 0,
       };
 
-      this.players.set([...this.players(), newPlayer]);
+      this.PlayerService.AddPlayer(newPlayer)
       this.closeDialog();
       this.playerForm.reset();
     }

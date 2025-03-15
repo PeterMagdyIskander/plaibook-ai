@@ -1,0 +1,66 @@
+<div class="players-container">
+  <div class="players-container-header">
+    <div>
+      <h1 class="players-container-header-title">Clubs</h1>
+      <h3 class="players-container-header-subtitle">
+        Manage your academy clubs
+      </h3>
+    </div>
+    <button class="players-container-header-control" (click)="openDialog()">
+      <img src="./assets/add-player-icon.svg" alt="icon" />
+      <span>Add Club</span>
+    </button>
+  </div>
+  <div class="players-container-search">
+    <img src="./assets/search-icon.svg" alt="icon" />
+    <input
+      type="text"
+      placeholder="Search clubs..."
+      [value]="searchQuery()"
+      (input)="updateSearch($event)"
+    />
+  </div>
+  <div class="players-container-cards-container">
+    @for (item of filteredClubs(); track $index) {
+    <app-club-card [item]="item"></app-club-card>
+    }
+  </div>
+</div>
+
+@if (isDialogVisible) {
+<div class="dialog-overlay" (click)="closeDialog()">
+  <dialog open class="player-dialog" (click)="$event.stopPropagation()">
+    <div class="dialog-container">
+      <div class="dialog-header">
+        <h2>Add New Club</h2>
+        <button type="button" class="close-button" (click)="closeDialog()">
+          ×
+        </button>
+      </div>
+
+      <form [formGroup]="clubForm" (ngSubmit)="onSubmit()">
+        <div class="form-container">
+          <div class="form-field">
+            <label for="name">Club Name</label>
+            <input
+              type="text"
+              id="name"
+              formControlName="name"
+              placeholder="FCB"
+            />
+            @if (shouldShowError('name', 'required')) {
+            <div class="error-message">Club name is required</div>
+            }
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="add-button" [disabled]="!clubForm.valid">
+            Add Club
+          </button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+</div>
+}

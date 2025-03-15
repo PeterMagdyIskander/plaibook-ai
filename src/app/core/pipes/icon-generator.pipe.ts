@@ -7,6 +7,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class IconGeneratorPipe implements PipeTransform {
   transform(value: string): string {
     let values = value.split(' ');
-    return values[0][0] + values[1][0];
+    let res = '';
+    values.forEach((val) => res+=val[0]);
+    return res;
   }
 }

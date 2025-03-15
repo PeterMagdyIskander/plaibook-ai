@@ -8,11 +8,15 @@
           type="email"
           id="email"
           formControlName="email"
-          [ngClass]="{'invalid': isFieldInvalid('email')}"
+          [ngClass]="{ invalid: isFieldInvalid('email') }"
         />
         <div *ngIf="isFieldInvalid('email')" class="error-message">
-          <span *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</span>
-          <span *ngIf="loginForm.get('email')?.errors?.['email']">Please enter a valid email address</span>
+          <span *ngIf="loginForm.get('email')?.errors?.['required']"
+            >Email is required</span
+          >
+          <span *ngIf="loginForm.get('email')?.errors?.['email']"
+            >Please enter a valid email address</span
+          >
         </div>
       </div>
 
@@ -22,19 +26,32 @@
           type="password"
           id="password"
           formControlName="password"
-          [ngClass]="{'invalid': isFieldInvalid('password')}"
+          [ngClass]="{ invalid: isFieldInvalid('password') }"
         />
         <div *ngIf="isFieldInvalid('password')" class="error-message">
-          <span *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</span>
-          <span *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters</span>
-          <span *ngIf="loginForm.get('password')?.errors?.['hasUpperCase']">Password must contain at least one uppercase letter</span>
-          <span *ngIf="loginForm.get('password')?.errors?.['hasLowerCase']">Password must contain at least one lowercase letter</span>
-          <span *ngIf="loginForm.get('password')?.errors?.['hasNumber']">Password must contain at least one number</span>
-          <span *ngIf="loginForm.get('password')?.errors?.['hasSpecialChar']">Password must contain at least one special character</span>
+          <span *ngIf="loginForm.get('password')?.errors?.['required']"
+            >Password is required</span
+          >
+          <span *ngIf="loginForm.get('password')?.errors?.['minlength']"
+            >Password must be at least 8 characters</span
+          >
+          <span *ngIf="loginForm.get('password')?.errors?.['hasUpperCase']"
+            >Password must contain at least one uppercase letter</span
+          >
+          <span *ngIf="loginForm.get('password')?.errors?.['hasLowerCase']"
+            >Password must contain at least one lowercase letter</span
+          >
+          <span *ngIf="loginForm.get('password')?.errors?.['hasNumber']"
+            >Password must contain at least one number</span
+          >
+          <span *ngIf="loginForm.get('password')?.errors?.['hasSpecialChar']"
+            >Password must contain at least one special character</span
+          >
         </div>
       </div>
 
       <button type="submit" [disabled]="loginForm.invalid">Login</button>
     </form>
   </div>
+  <button (click)="loginWithGoogle()">google</button>
 </div>

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavigationMenuComponent } from './core/navigation-menu/navigation-menu.component';
-
 @Component({
   selector: 'app-root',
   standalone: true,

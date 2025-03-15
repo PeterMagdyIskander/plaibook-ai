@@ -6,6 +6,7 @@ import { PerformanceComponent } from './features/performance/performance.compone
 import { TrainingComponent } from './features/training/training.component';
 import { LoginComponent } from './features/login/login.component';
 import { HomeDashboardComponent } from './features/home-dashboard/home-dashboard.component';
+import { SignupComponent } from './features/signup/signup.component';
 
 export const routes: Routes = [
   { path: '', component: HomeDashboardComponent },
@@ -15,4 +16,5 @@ export const routes: Routes = [
   { path: 'formation', component: FormationComponent },
   { path: 'top-eleven', component: TopElevenComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent },
 ];

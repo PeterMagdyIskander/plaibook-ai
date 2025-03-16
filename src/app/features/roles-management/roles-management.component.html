@@ -9,6 +9,13 @@
       <span>Add Role </span>
     </button>
   </div>
+  <div class="players-container-cards-container">
+    @for (item of rolesService.roles(); track $index) {
+    <app-role-card
+      [item]="item"
+    ></app-role-card>
+    }
+  </div>
 </div>
 
 @if (isDialogVisible) {

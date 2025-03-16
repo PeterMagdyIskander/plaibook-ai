@@ -1,0 +1,16 @@
+<div class="player-card">
+  <div class="player-card-header">
+    <div class="player-card-header-icon">
+      <h1>{{ item.name | iconGenerator }}</h1>
+    </div>
+    <div>
+      <h3 class="player-card-header-name">{{ item.name }}</h3>
+      @for (permission of item.permissions; track $index) {
+      <h4 class="player-card-header-info">
+        {{ permission.split(":")[0] }} <span>•</span>
+        {{ permission.split(":")[1] }}
+      </h4>
+      }
+    </div>
+  </div>
+</div>

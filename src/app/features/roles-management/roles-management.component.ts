@@ -1,3 +1,4 @@
+import { RolesService } from './../../core/services/roles.service';
 import { Component, OnInit } from '@angular/core';
 
 import {
@@ -6,10 +7,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { RoleCardComponent } from "../../shared/role-card/role-card.component";
 @Component({
   selector: 'app-roles-management',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RoleCardComponent],
   templateUrl: './roles-management.component.html',
   styleUrl: './roles-management.component.scss',
 })
@@ -19,9 +21,10 @@ export class RolesManagementComponent implements OnInit {
   operations: string[] = ['view', 'create', 'update', 'delete'];
   resources: string[] = ['club', 'team', 'player'];
   permissions: string[] = [];
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, public rolesService: RolesService) {}
   ngOnInit(): void {
     this.initForm();
+    this.rolesService.getAllRoles();
   }
 
   initForm(): void {
@@ -41,8 +44,12 @@ export class RolesManagementComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.roleForm.valid) {
-      // this.clubService.createClub({ name: this.clubForm.value.name });
+    if (!this.shouldShowError('name', 'required') && this.permissions.length !== 0) {
+      this.rolesService.createRole({
+        name: this.roleForm.value.name,
+        permissions: this.permissions,
+      });
+      this.permissions=[];
       this.closeDialog();
       this.roleForm.reset();
     }
@@ -52,7 +59,8 @@ export class RolesManagementComponent implements OnInit {
   shouldShowError(controlName: string, errorName: string): boolean {
     const control = this.roleForm.get(controlName);
     return control!.touched && control!.hasError(errorName);
-  }isPermissionValid(): boolean {
+  }
+  isPermissionValid(): boolean {
     const operation = this.roleForm.get('operation')?.value;
     const resource = this.roleForm.get('resource')?.value;
     return operation && resource;
@@ -71,7 +79,7 @@ export class RolesManagementComponent implements OnInit {
         // Reset only operation and resource fields
         this.roleForm.patchValue({
           operation: '',
-          resource: ''
+          resource: '',
         });
       }
     }

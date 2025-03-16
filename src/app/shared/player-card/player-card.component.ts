@@ -1,5 +1,5 @@
-import { Player } from '../../features/players/player.model';
-import { Component, Input } from '@angular/core';
+import { Player } from '../../core/models/player.models';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { IconGeneratorPipe } from '../../core/pipes/icon-generator.pipe';
 @Component({
@@ -11,4 +11,8 @@ import { IconGeneratorPipe } from '../../core/pipes/icon-generator.pipe';
 })
 export class PlayerCardComponent {
   @Input() item!: Player;
+  @Output() deleteItem: EventEmitter<string> = new EventEmitter<string>();
+  handleDelete() {
+    this.deleteItem.emit(this.item.id);
+  }
 }

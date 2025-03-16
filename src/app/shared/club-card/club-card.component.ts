@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Club } from '../../core/models/club.models';
 import { IconGeneratorPipe } from '../../core/pipes/icon-generator.pipe';
 
@@ -11,4 +11,8 @@ import { IconGeneratorPipe } from '../../core/pipes/icon-generator.pipe';
 })
 export class ClubCardComponent {
   @Input() item!: Club;
+  @Output() deleteItem: EventEmitter<string> = new EventEmitter<string>();
+  handleDelete() {
+    this.deleteItem.emit(this.item.id);
+  }
 }

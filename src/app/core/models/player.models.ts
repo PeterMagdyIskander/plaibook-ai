@@ -7,6 +7,9 @@ export interface Player {
   age: number;
   createdAt: string;
   updatedAt: string;
+  rating:number,
+  team:string,
+  club:string
 }
 
 export interface PlayerResponse {

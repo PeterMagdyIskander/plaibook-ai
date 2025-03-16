@@ -1,5 +1,5 @@
+import { PlayerService } from './../../core/services/player.service';
 import { Component, computed, OnInit, signal } from '@angular/core';
-import { Player } from './player.model';
 import { PlayerCardComponent } from '../../shared/player-card/player-card.component';
 
 import {
@@ -8,6 +8,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { TeamService } from '../../core/services/team.service';
+import { ClubService } from '../../core/services/club.service';
 @Component({
   selector: 'app-players',
   standalone: true,
@@ -30,56 +32,20 @@ export class PlayersComponent implements OnInit {
     'Right Winger',
     'Striker',
   ];
-  teams: string[] = ['Youth', 'Under 23', "Men's", "Women's"];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    public teamService: TeamService,
+    public clubService: ClubService,
+    private playerService: PlayerService
+  ) {}
   ngOnInit(): void {
     this.initForm();
+    this.teamService.getAllTeams();
+    this.clubService.getAllClubs();
+    this.playerService.getAllPlayers();
   }
-  players = signal<Player[]>([
-    {
-      name: 'John Doe #1',
-      age: 18,
-      rating: 4.5,
-      team: 'Youth Team',
-      position: 'Striker',
-    },
-    {
-      name: 'John Doe #2',
-      age: 18,
-      rating: 4.5,
-      team: 'Youth Team',
-      position: 'Striker',
-    },
-    {
-      name: 'John Doe #3',
-      age: 18,
-      rating: 4.5,
-      team: 'Youth Team',
-      position: 'Striker',
-    },
-    {
-      name: 'John Doe #4',
-      age: 18,
-      rating: 4.5,
-      team: 'Youth Team',
-      position: 'Striker',
-    },
-    {
-      name: 'John Doe #5',
-      age: 18,
-      rating: 4.5,
-      team: 'Youth Team',
-      position: 'Striker',
-    },
-    {
-      name: 'John Doe #6',
-      age: 18,
-      rating: 4.5,
-      team: 'Youth Team',
-      position: 'Striker',
-    },
-  ]);
+
   // Signal for the search query
   searchQuery = signal('');
 
@@ -88,12 +54,12 @@ export class PlayersComponent implements OnInit {
     const query = this.searchQuery().toLowerCase();
 
     if (!query) {
-      return this.players();
+      return this.playerService.players();
     }
 
-    return this.players().filter((player) =>
-      player.name.toLowerCase().includes(query)
-    );
+    return this.playerService
+      .players()
+      .filter((player) => player.name.toLowerCase().includes(query));
   });
 
   // Method to update the search query
@@ -106,7 +72,8 @@ export class PlayersComponent implements OnInit {
       name: ['', Validators.required],
       position: ['', Validators.required],
       age: ['', [Validators.required, Validators.min(16), Validators.max(60)]],
-      team: ['', Validators.required],
+      clubId: ['', Validators.required],
+      teamId: ['', Validators.required],
     });
   }
 
@@ -120,15 +87,21 @@ export class PlayersComponent implements OnInit {
 
   onSubmit(): void {
     if (this.playerForm.valid) {
-      const newPlayer: Player = {
+      const clubName = this.clubService
+        .clubs()
+        .find((club) => club.id === this.playerForm.value.clubId)?.name;
+      const teamName = this.teamService
+        .teams()
+        .find((team) => team.id === this.playerForm.value.teamId)?.name;
+      this.playerService.createPlayer({
         name: this.playerForm.value.name,
-        age: this.playerForm.value.age,
-        team: this.playerForm.value.team,
+        teamId: this.playerForm.value.teamId,
+        clubId: this.playerForm.value.clubId,
         position: this.playerForm.value.position,
-        rating: 0,
-      };
-
-      this.players.set([...this.players(), newPlayer]);
+        age: this.playerForm.value.age,
+        team: teamName!,
+        club: clubName!,
+      });
       this.closeDialog();
       this.playerForm.reset();
     }
@@ -138,5 +111,8 @@ export class PlayersComponent implements OnInit {
   shouldShowError(controlName: string, errorName: string): boolean {
     const control = this.playerForm.get(controlName);
     return control!.touched && control!.hasError(errorName);
+  }
+  handleDeleteItem(playerId: string) {
+    this.playerService.deletePlayer(playerId);
   }
 }

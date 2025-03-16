@@ -22,7 +22,7 @@
   </div>
   <div class="players-container-cards-container">
     @for (item of filteredClubs(); track $index) {
-    <app-club-card [item]="item"></app-club-card>
+    <app-club-card [item]="item" (deleteItem)="handleDeleteItem($event)"></app-club-card>
     }
   </div>
 </div>

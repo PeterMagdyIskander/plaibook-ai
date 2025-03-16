@@ -6,10 +6,8 @@
     <div>
       <h3 class="player-card-header-name">{{ item.name }}</h3>
     </div>
-    <img
-      class="player-card-header-action"
-      src="./assets/trash-icon.svg"
-      alt="trash icon"
-    />
+    <button (click)="handleDelete()" class="player-card-header-action">
+      <img src="./assets/trash-icon.svg" alt="trash icon" />
+    </button>
   </div>
 </div>

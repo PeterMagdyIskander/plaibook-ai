@@ -22,7 +22,10 @@
   </div>
   <div class="players-container-cards-container">
     @for (item of filteredTeams(); track $index) {
-   <app-team-card [item]="item"></app-team-card>
+    <app-team-card
+      [item]="item"
+      (deleteItem)="handleDeleteItem($event)"
+    ></app-team-card>
     }
   </div>
 </div>
@@ -53,14 +56,24 @@
             }
           </div>
 
+          <div class="form-field">
+            <label for="clubId">Club</label>
+            <select id="clubId" formControlName="clubId">
+              <option value="" disabled selected>Select Club</option>
+              @for (club of clubService.clubs(); track $index) {
+              <option [value]="club.id">
+                {{ club.name }}
+              </option>
+              }
+            </select>
+            @if (shouldShowError('clubId', 'required')) {
+            <div class="error-message">Club is required</div>
+            }
+          </div>
         </div>
 
         <div class="form-actions">
-          <button
-            type="submit"
-            class="add-button"
-            [disabled]="!teamForm.valid"
-          >
+          <button type="submit" class="add-button" [disabled]="!teamForm.valid">
             Add Team
           </button>
         </div>

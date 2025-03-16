@@ -9,11 +9,12 @@
         {{ item.position }} <span>•</span> {{ item.team }}
       </h4>
     </div>
-    <img
-      class="player-card-header-action"
-      src="./assets/trash-icon.svg"
-      alt="trash icon"
-    />
+    <button (click)="handleDelete()"  class="player-card-header-action">
+      <img
+        src="./assets/trash-icon.svg"
+        alt="trash icon"
+      />
+    </button>
   </div>
   <div class="player-card-content">
     <div class="player-card-content-item">

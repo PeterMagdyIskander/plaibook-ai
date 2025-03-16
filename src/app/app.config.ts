@@ -7,6 +7,7 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
 import { provideFirebaseApp } from '@angular/fire/app';
+import { provideHttpClient } from '@angular/common/http';
 const firebaseConfig = {
   apiKey: "AIzaSyBnV17qRa7xS1RCJfEoi7c2gHkXMgX7ZBE",
   authDomain: "plaibook-ai.firebaseapp.com",
@@ -26,5 +27,6 @@ export const appConfig: ApplicationConfig = {
     provideFirebaseApp(() => firebaseApp),
     provideAuth(() => getAuth(firebaseApp)),
     provideFirestore(() => getFirestore(firebaseApp)),
+    provideHttpClient(),
   ],
 };

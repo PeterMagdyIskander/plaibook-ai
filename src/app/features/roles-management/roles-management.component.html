@@ -1,0 +1,115 @@
+<div class="players-container">
+  <div class="players-container-header">
+    <div>
+      <h1 class="players-container-header-title">Roles</h1>
+      <h3 class="players-container-header-subtitle">Manage website Roles</h3>
+    </div>
+    <button class="players-container-header-control" (click)="openDialog()">
+      <img src="./assets/add-player-icon.svg" alt="icon" />
+      <span>Add Role </span>
+    </button>
+  </div>
+</div>
+
+@if (isDialogVisible) {
+<div class="dialog-overlay" (click)="closeDialog()">
+  <dialog open class="player-dialog" (click)="$event.stopPropagation()">
+    <div class="dialog-container">
+      <div class="dialog-header">
+        <h2>Add New Club</h2>
+        <button type="button" class="close-button" (click)="closeDialog()">
+          ×
+        </button>
+      </div>
+
+      <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+        <div class="form-container">
+          <div class="form-field">
+            <label for="name">Role Name</label>
+            <input
+              type="text"
+              id="name"
+              formControlName="name"
+              placeholder="Admin"
+            />
+            @if (shouldShowError('name', 'required')) {
+            <div class="error-message">Role name is required</div>
+            }
+          </div>
+
+          <div class="form-field">
+            <label for="operation">Operation</label>
+            <select id="operation" formControlName="operation">
+              <option value="" disabled selected>Select operation</option>
+              @for (operation of operations; track $index) {
+              <option [value]="operation">
+                {{ operation }}
+              </option>
+              }
+            </select>
+            @if (shouldShowError('operation', 'required')) {
+            <div class="error-message">Operation is required</div>
+            }
+          </div>
+
+          <div class="form-field">
+            <label for="resource">Resource</label>
+            <select id="resource" formControlName="resource">
+              <option value="" disabled selected>Select resource</option>
+              @for (resource of resources; track $index) {
+              <option [value]="resource">
+                {{ resource }}
+              </option>
+              }
+            </select>
+            @if (shouldShowError('resource', 'required')) {
+            <div class="error-message">Resource is required</div>
+            }
+          </div>
+        </div>
+
+        <!-- Display permissions list -->
+        @if (permissions.length > 0) {
+        <div class="permissions-list">
+          <h3>Permissions</h3>
+          <ul>
+            @for (permission of permissions; track $index) {
+            <li>
+              {{ permission }}
+              <button
+                type="button"
+                class="remove-button"
+                (click)="removePermission($index)"
+              >
+                ×
+              </button>
+            </li>
+            }
+          </ul>
+        </div>
+        }
+
+        <div class="form-actions">
+          <button
+            type="button"
+            class="add-button"
+            [disabled]="!isPermissionValid()"
+            (click)="addPermission()"
+          >
+            Add Permission
+          </button>
+          <button
+            type="submit"
+            class="add-button"
+            [disabled]="
+              !shouldShowError('name', 'required') && permissions.length === 0
+            "
+          >
+            Add Role
+          </button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+</div>
+}

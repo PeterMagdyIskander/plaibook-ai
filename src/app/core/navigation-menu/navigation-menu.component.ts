@@ -42,5 +42,10 @@ export class NavigationMenuComponent {
       name: 'Top 11',
       route: '/top-eleven',
     },
+    {
+      icon: 'settings-icon.svg',
+      name: 'Roles',
+      route: '/roles',
+    },
   ];
 }

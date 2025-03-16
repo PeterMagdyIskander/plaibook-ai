@@ -9,6 +9,7 @@ import { HomeDashboardComponent } from './features/home-dashboard/home-dashboard
 import { SignupComponent } from './features/signup/signup.component';
 import { ClubsComponent } from './features/clubs/clubs.component';
 import { TeamsComponent } from './features/teams/teams.component';
+import { RolesManagementComponent } from './features/roles-management/roles-management.component';
 
 export const routes: Routes = [
   { path: '', component: HomeDashboardComponent },
@@ -24,4 +25,5 @@ export const routes: Routes = [
   { path: 'top-eleven', component: TopElevenComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
+  { path: 'roles', component: RolesManagementComponent },
 ];
